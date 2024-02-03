@@ -40,3 +40,20 @@ class CustomSVR:
         self.dual_coef = alphas[alphas > 1e-5] * self.support_vector_labels
         self.intercept = np.mean(self.support_vector_labels - np.sum(self.dual_coef * K[alphas > 1e-5, :], axis=0))
  
+    # Making predictions using the trained SVR model
+    def predict(self, X_test):
+        y_pred = np.sum(self.dual_coef * self._kernel(self.support_vectors, X_test) + self.intercept, axis=0)
+        return y_pred
+
+    # Computing the kernel matrix
+    def _compute_kernel_matrix(self):
+        return self._kernel(self.X, self.X)
+
+    def _kernel(self, X1, X2):
+        if self.kernel == 'rbf':
+            # Computing RBF kernel
+            gamma = 1.0 / X1.shape[1]                                           # default gamma for rbf kernel
+            pairwise_dists_sq = np.sum(X1**2, axis=1)[:, np.newaxis] + np.sum(X2**2, axis=1) - 2 * np.dot(X1, X2.T)
+            return np.exp(-gamma * pairwise_dists_sq)
+        else:
+            raise ValueError("Unsupported kernel type")
