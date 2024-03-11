@@ -1,6 +1,6 @@
 # Regression Algorithms
 
-   This repository contains implementations of various [Regression Algorithms](https://en.wikipedia.org/wiki/Regression_analysis) in [Python]().
+   This repository contains implementations of various [Regression Algorithms](https://en.wikipedia.org/wiki/Regression_analysis) in [Python](https://www.python.org/).
 
 ## Overview
 
